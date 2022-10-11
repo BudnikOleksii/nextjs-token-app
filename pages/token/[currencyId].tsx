@@ -11,12 +11,14 @@ const TokenDashboardByCurrency: NextPage = () => {
   const { tokenState } = useSelector(selectTokenState)
   let tokenStatistic: TokenInfoByCurrencyWithId[] = [];
 
-  if (typeof currencyId === "string") {
-    tokenStatistic = tokenState.map(token => ({
-      ...token.bpi[currencyId.toUpperCase() as CurrencyCode],
-      id: token.id,
-    }));
+  if (currencyId !== 'usd' && currencyId !== 'eur' && currencyId !== 'gbp') {
+    return <div className="notification is-warning m-auto" style={{ width: '300px' }}>Not found page</div>;
   }
+
+  tokenStatistic = tokenState.map(token => ({
+    ...token.bpi[currencyId.toUpperCase() as CurrencyCode],
+    id: token.id,
+  }));
 
   return (
     <div className="m-auto pt-2" style={{ maxWidth: '800px' }}>
