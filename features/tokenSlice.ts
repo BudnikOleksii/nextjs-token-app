@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { v4 as uuidv4 } from 'uuid';
 import { AppState } from '../app/store';
 import { TokenInfoAll } from '../types/TokenInfo';
 import { getTokenInfo } from '../api/token';
@@ -30,7 +31,10 @@ export const tokenSlice = createSlice({
     });
 
     builder.addCase(fetchToken.fulfilled, (state, action) => {
-      state.tokenState.push(action.payload);
+      state.tokenState.push({
+        ...action.payload,
+        id: uuidv4(),
+      });
       state.tokenIsLoading = false;
     });
 

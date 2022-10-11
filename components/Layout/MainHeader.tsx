@@ -11,13 +11,13 @@ export const MainHeader = () => {
       <nav className={classes.navigation}>
         <ul className={classes.navigationList}>
           <li className={classes.navigationLink}>
-            <Link href="/usd">Token info in Dollars</Link>
+            <Link href="/token/usd">Token statistic in Dollars</Link>
           </li>
           <li className={classes.navigationLink}>
-            <Link href="/gbp">Token info in Pounds</Link>
+            <Link href="/token/gbp">Token statistic in Pounds</Link>
           </li>
           <li className={classes.navigationLink}>
-            <Link href="/eur">Token info in Euro</Link>
+            <Link href="/token/eur">Token statistic in Euro</Link>
           </li>
         </ul>
       </nav>

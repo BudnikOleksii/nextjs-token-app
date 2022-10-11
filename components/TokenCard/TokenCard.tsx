@@ -1,11 +1,42 @@
 import { FC } from 'react';
-import { TokenInfoAll } from '../../types/TokenInfo';
+import { TokenInfoAll, TokenInfoByCurrency } from '../../types/TokenInfo';
 
-interface Props {
+interface TokenCardProps {
   currentToken: TokenInfoAll,
 }
 
-export const TokenCard: FC<Props> = ({ currentToken }) => {
+interface TokenInfoProps {
+  tokenCurrencyInfo: TokenInfoByCurrency,
+}
+
+const TokenCurrencyInfo: FC<TokenInfoProps> = ({ tokenCurrencyInfo }) => {
+  const { code, symbol, rate } = tokenCurrencyInfo;
+  let symbolUnicode: string;
+
+  switch (symbol) {
+    case '&#36;':
+      symbolUnicode = '$';
+      break;
+    case '&pound;':
+      symbolUnicode = '£';
+      break;
+    case '&euro;':
+      symbolUnicode = '€';
+      break;
+    default:
+      symbolUnicode = '';
+      break;
+  }
+
+  return (
+    <p className="subtitle is-5">
+      {`${code} ${rate}`}
+      <strong>{symbolUnicode}</strong>
+    </p>
+  )
+}
+
+export const TokenCard: FC<TokenCardProps> = ({ currentToken }) => {
   const { time, chartName, bpi } = currentToken;
 
   return (
@@ -23,7 +54,9 @@ export const TokenCard: FC<Props> = ({ currentToken }) => {
         </div>
 
         <div className="content">
-
+          <TokenCurrencyInfo tokenCurrencyInfo={bpi.USD} />
+          <TokenCurrencyInfo tokenCurrencyInfo={bpi.GBP} />
+          <TokenCurrencyInfo tokenCurrencyInfo={bpi.EUR} />
           <time>{time.updated}</time>
         </div>
       </div>
